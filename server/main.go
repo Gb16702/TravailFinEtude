@@ -6,10 +6,12 @@ import (
 	"os"
 	"log"
 	"host/core"
+	"host/database"
 )
 
 type environment struct {
-	Url string
+	ServerUrl string
+	ConnectionString string
 }
 
 /**
@@ -23,9 +25,10 @@ func main() {
 		log.Fatalf("Error loading .env file %v", err)
 	};
 
-	fmt.Println("Server running on port: " + env.Url);
+	fmt.Println("Server running on port: " + env.ServerUrl);
 
-	core.HandleServerStart(env.Url);
+	database.ConnectToDatabase(env.ConnectionString);
+	core.HandleServerStart(env.ServerUrl);
 }
 
 /**
@@ -40,7 +43,8 @@ func loadEnv() (environment, error) {
 	};
 
 	env := environment{
-		Url: os.Getenv("SERVER_URL"),
+		ServerUrl: os.Getenv("SERVER_URL"),
+		ConnectionString: os.Getenv("DB_URL"),
 	};
 
 	return env, nil;
