@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"log"
+	"host/core"
 )
 
 type environment struct {
@@ -17,12 +18,14 @@ type environment struct {
 *	@returns void
 */
 func main() {
-	env, err := loadEnv()
+	env, err := loadEnv();
 	if err != nil {
 		log.Fatalf("Error loading .env file %v", err)
-	}
+	};
 
-	fmt.Println("Server running on port: " + env.Url)
+	fmt.Println("Server running on port: " + env.Url);
+
+	core.HandleServerStart(env.Url);
 }
 
 /**
@@ -34,11 +37,11 @@ func main() {
 func loadEnv() (environment, error) {
 	if err := godotenv.Load(); err != nil {
 		log.Fatalf("Error loading .env file %v", err)
-	}
+	};
 
 	env := environment{
 		Url: os.Getenv("SERVER_URL"),
-	}
+	};
 
-	return env, nil
+	return env, nil;
 }
