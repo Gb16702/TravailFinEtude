@@ -58,9 +58,6 @@ func IsValidEmail(x interface{},) (bool, error) {
 	return true, nil;
 }
 
-
-
-
 /**
 *	This function checks if the value is a valid password
 *
@@ -70,7 +67,7 @@ func IsValidEmail(x interface{},) (bool, error) {
 */
 func IsValidPassword(password string) (bool, error) {
 	const minLength = 4;
-	const maxLength = 20;
+	const maxLength = 32;
 
 	if (len(password) < minLength) {
 		return false, errors.New("Le mot de passe doit contenir au moins 4 caractères");
