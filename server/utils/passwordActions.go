@@ -35,7 +35,7 @@ func ComparePassword(requestPassword, userPassword string) (err error) {
 	}
 
 	if !match {
-		return errors.New("Invalid credentials")
+		return errors.New("invalid credentials")
 	}
 
 	return nil;

@@ -1,25 +1,20 @@
 package routes
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"log"
+	"host/database"
+	"host/database/models"
 	"host/utils"
-)
+	"log"
 
-type Register struct {
-	FirstName 			string 	`json:"firstname"`
-	LastName 			string 	`json:"lastname"`
-	Email 				string 	`json:"email"`
-	Password 			string 	`json:"password"`
-	PasswordConfirm		 string  `json:"passwordconfirm"`
-}
+	"github.com/gofiber/fiber/v2"
+)
 
 /**
 *	This function handles the auth routes
 *
 *	@param *fiber.Ctx c
 *	@returns error
-*/
+ */
 func AuthHandler(c *fiber.Ctx) error {
 	err := register(c);
 
@@ -37,16 +32,24 @@ func AuthHandler(c *fiber.Ctx) error {
 *	@returns error
 */
 func register(c *fiber.Ctx) error {
+	type register_struct struct {
+		FirstName 			string 	`json:"firstname"`
+		LastName 			string 	`json:"lastname"`
+		Email 				string 	`json:"email"`
+		Password 			string 	`json:"password"`
+		PasswordConfirm		string 	`json:"passwordconfirm"`
+	}
+
 	if c.Method() != fiber.MethodPost {
 		return c.Status(500).JSON(fiber.Map{
 			"message": "La méthode est incorrecte",
 		});
 	}
 
-	var register = new(Register);
-	if err := c.BodyParser(register); err != nil {
+	register := register_struct{};
+	if err := c.BodyParser(&register); err != nil {
 		return c.Status(500).JSON(fiber.Map{
-			"message": "Une erreur est survenue",
+			"message": "Une erreur est survenue" + err.Error(),
 		})
 	}
 
@@ -77,6 +80,13 @@ func register(c *fiber.Ctx) error {
 			if _, err := utils.IsValidEmail(register.Email); err != nil {
 				return c.Status(500).JSON(fiber.Map{
 					"message": err.Error(),
+				})
+			}
+
+			isExistingEmail := database.DB.Where("email = ?", register.Email).First(&models.User{})
+			if isExistingEmail.RowsAffected != 0 {
+				return c.Status(500).JSON(fiber.Map{
+					"message": "L'email est déjà utilisé",
 				})
 			}
 
@@ -114,6 +124,21 @@ func register(c *fiber.Ctx) error {
 			"message": "Une erreur est survenue",
 		})
 	}
+
+	user := models.User{
+		FirstName: register.FirstName,
+		LastName: register.LastName,
+		UserLogin: models.UserLogin{
+			Email: register.Email,
+			Password: hash,
+		},
+	}
+	if result := database.DB.Create(&user); result.Error != nil {
+		return c.Status(500).JSON(fiber.Map{
+			"message": "L'utilisateur n'a pas pu être enregistré" + result.Error.Error(),
+		})
+	}
+
 	return c.Status(200).JSON(fiber.Map{
 		"message": "L'utilisateur a été enregistré",
 		"register": register,

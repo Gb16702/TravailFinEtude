@@ -70,11 +70,11 @@ func IsValidPassword(password string) (bool, error) {
 	const maxLength = 32;
 
 	if (len(password) < minLength) {
-		return false, errors.New("Le mot de passe doit contenir au moins 4 caractères");
+		return false, errors.New("le mot de passe doit contenir au moins 4 caractères");
 	}
 
 	if (len(password) > maxLength) {
-		return false, errors.New("Le mot de passe doit contenir au plus 20 caractères");
+		return false, errors.New("le mot de passe doit contenir au plus 20 caractères");
 	}
 
 	return true, nil;
@@ -90,7 +90,7 @@ func IsValidPassword(password string) (bool, error) {
 */
 func ArePasswordMatching(password, password_confirm string) (bool, error) {
 	if(password != password_confirm) {
-		return false, errors.New("Les mots de passe ne correspondent pas");
+		return false, errors.New("les mots de passe ne correspondent pas");
 	}
 
 	return true, nil;

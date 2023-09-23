@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
 	"fmt"
-	"os"
-	"log"
 	"host/core"
 	"host/database"
+	"log"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type environment struct {
@@ -28,6 +29,13 @@ func main() {
 	fmt.Println("Server running on port: " + env.ServerUrl);
 
 	database.ConnectToDatabase(env.ConnectionString);
+
+	defer func() {
+		if err := database.CloseDatabaseConnection(); err != nil {
+			log.Fatalf("Error while closing database connection: %v", err)
+		}
+	}()
+	
 	core.HandleServerStart(env.ServerUrl);
 }
 

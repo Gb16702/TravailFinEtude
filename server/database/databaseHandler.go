@@ -3,10 +3,11 @@ package database
 import (
 	"log"
 
+	"host/database/models"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"host/database/models"
 )
 
 var DB *gorm.DB;
@@ -14,16 +15,10 @@ var DB *gorm.DB;
 /**
 *	This function connects to the database
 *
-*	@param string connectionString
+*	@param connectionString string
 *	@returns void
 */
 func ConnectToDatabase(connectionString string) {
-	defer func() {
-		if err := CloseDatabaseConnection(DB); err != nil {
-			log.Fatalf("Error while closing database connection: %v", err)
-		}
-	}()
-
 	var err error;
 	DB, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
@@ -33,7 +28,7 @@ func ConnectToDatabase(connectionString string) {
 		log.Fatalf("Error while connecting to database: %v", err)
 	}
 
-	log.Println("Successfully connected to database");
+	log.Println("Successfully connected to database", DB.Name());
 
 	message, err := migrateSchemas(DB);
 	if err != nil {
@@ -46,7 +41,7 @@ func ConnectToDatabase(connectionString string) {
 /**
 *	This function migrates the schemas
 *
-*	@param *gorm.DB database
+*	@param database *gorm.DB
 *	@returns string
 *	@returns error
 */
@@ -60,15 +55,13 @@ func migrateSchemas(database *gorm.DB) (string, error) {
 /**
 *	This function closes the database connection
 *
-*	@param *gorm.DB database
 *	@returns error
 */
-func CloseDatabaseConnection(database *gorm.DB) error  {
-	db, err := database.DB();
+func CloseDatabaseConnection() error  {
+	db, err := DB.DB();
 	if err != nil {
 		return err;
 	}
-
 	db.Close();
 
 	return nil;
