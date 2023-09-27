@@ -11,7 +11,7 @@ export type PasswordValidationError = {
  * @param password string
  * @returns err | null
  */
-const IsPasswordValid: (password: string) => PasswordValidationError | null = (
+export const IsPasswordValid: (password: string) => PasswordValidationError | null = (
   password: string
 ) => {
   let err: PasswordValidationError | null = null;
@@ -61,4 +61,3 @@ export const ArePasswordMatching: (password: string, password_confirm: string) =
     return err ? err : null;
 }
 
-export default IsPasswordValid;

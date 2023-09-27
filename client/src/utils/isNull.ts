@@ -1,6 +1,6 @@
 export type IsNullError = {
-    Message: string;
-}
+  Message: string;
+};
 
 /**
  * Checks if a string is null or empty
@@ -9,13 +9,14 @@ export type IsNullError = {
  * @returns boolean
  */
 const IsNull: (params: string) => IsNullError | null = (params: string) => {
+  console.log(typeof params);
 
-    let err: IsNullError | null = null;
-    if(params == null || params.trim().length == 0) {
-        err = {Message: "Ce champs est requis"};
-    }
+  let err: IsNullError | null = null;
+  if (params == null || params.trim().length == 0) {
+    err = { Message: "Ce champs est requis" };
+  }
 
-    return err ? err : null;
-}
+  return err ? err : null;
+};
 
-export default IsNull
+export default IsNull;

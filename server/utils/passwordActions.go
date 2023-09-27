@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"github.com/alexedwards/argon2id"
 	"errors"
+	"github.com/alexedwards/argon2id"
 )
 
 /**
@@ -11,7 +11,7 @@ import (
 * 	@params password string
 *	@returns string
 * 	@returns error
-*/
+ */
 func HashPassword(password string) (string, error) {
 	hash, err := argon2id.CreateHash(password, argon2id.DefaultParams)
 	if err != nil {
@@ -27,16 +27,16 @@ func HashPassword(password string) (string, error) {
 * 	@params requestPassword
 * 	@params userPassword
 *	@returns err error
-*/
+ */
 func ComparePassword(requestPassword, userPassword string) (err error) {
-	match, _, err := argon2id.CheckHash(requestPassword, userPassword);
+	match, _, err := argon2id.CheckHash(requestPassword, userPassword)
 	if err != nil {
-		return err;
+		return err
 	}
 
 	if !match {
 		return errors.New("invalid credentials")
 	}
 
-	return nil;
+	return nil
 }

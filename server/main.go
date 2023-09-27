@@ -11,49 +11,48 @@ import (
 )
 
 type environment struct {
-	ServerUrl string
+	ServerUrl        string
 	ConnectionString string
 }
 
-/**
-*	Main function
+/*
+*   This function is the main function
 *
-*	@returns void
-*/
+*   @returns void
+ */
 func main() {
-	env, err := loadEnv();
+	env, err := loadEnv()
 	if err != nil {
 		log.Fatalf("Error loading .env file %v", err)
-	};
+	}
 
-	fmt.Println("Server running on port: " + env.ServerUrl);
+	fmt.Println("Server running on port: " + env.ServerUrl)
 
-	database.ConnectToDatabase(env.ConnectionString);
+	database.ConnectToDatabase(env.ConnectionString)
 
 	defer func() {
 		if err := database.CloseDatabaseConnection(); err != nil {
 			log.Fatalf("Error while closing database connection: %v", err)
 		}
 	}()
-	
-	core.HandleServerStart(env.ServerUrl);
+	core.HandleServerStart(env.ServerUrl)
 }
 
-/**
-*	Load environment variables from .env file
+/*
+*   This function load the environment variables
 *
-*	@returns environment struct
-*	@returns error
-*/
+*   @returns environment struct
+*   @returns error
+ */
 func loadEnv() (environment, error) {
 	if err := godotenv.Load(); err != nil {
 		log.Fatalf("Error loading .env file %v", err)
-	};
+	}
 
 	env := environment{
-		ServerUrl: os.Getenv("SERVER_URL"),
+		ServerUrl:        os.Getenv("SERVER_URL"),
 		ConnectionString: os.Getenv("DB_URL"),
-	};
+	}
 
-	return env, nil;
+	return env, nil
 }
