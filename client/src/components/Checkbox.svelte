@@ -1,8 +1,8 @@
 <script lang="ts">
     export let theme: "default" | "alt" = "default";
     export let checkedClasses: string = "";
+    export let checked: boolean = false;
 
-    let checked: boolean = false;
     let defaultClasses: string = "absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none top-1/2 left-1/2 w-full h-full flex items-center justify-center overflow-hidden rounded-[4px]"
 
     $: {
@@ -13,11 +13,14 @@
         }
     }
 
+    const handleCheck: () => void = () => {
+        if(theme === "default") {
+            checked = !checked;
+        }
+    }
 </script>
 <div class="relative w-fit h-fit overflow-hidden border rounded-[4px]">
-    <div class="appearance-none rounded-[4px] bg-white overflow-hidden w-4 h-4" on:click={() => {
-        checked = !checked;
-    }}></div>
+    <div class="appearance-none rounded-[4px] bg-white overflow-hidden w-4 h-4" on:click={handleCheck}></div>
     {#if checked}
     <div class={`${defaultClasses} ${checkedClasses}`}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="white" class="w-[80%] h-[80%]">

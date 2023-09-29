@@ -1,17 +1,17 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
     import type { SubmitFunction } from "@sveltejs/kit";
-    import type { ActionData, PageData, Snapshot } from "./$types";
-    import {page} from "$app/stores";
-    import { goto } from "$app/navigation";
-    import Input from "../../../components/Input.svelte";
-    import Button from "../../../components/Button.svelte";
-    import Logo from "../../../components/Logo.svelte";
     import AuthSectionToggler from "../../../components/AuthSectionToggler.svelte";
+    import Button from "../../../components/Button.svelte";
+    import Checkbox from "../../../components/Checkbox.svelte";
+    import Input from "../../../components/Input.svelte";
+    import SearchCountry from "../../../components/SearchCountry.svelte";
     import Hide from "../../../components/icons/Hide.svelte";
     import Show from "../../../components/icons/Show.svelte";
-    import Checkbox from "../../../components/Checkbox.svelte";
+    import type { ActionData, PageData, Snapshot } from "./$types";
+    import {isOpen} from "../../../stores/openStore"
 
+    console.log($isOpen);
 
     export const snapshot: Snapshot = {
         capture: () => formDataObject,
@@ -84,7 +84,7 @@
     let checked = true;
 
     export let data: PageData
-    console.log(data);
+
 </script>
 
     <div class="w-full flex items-center justify-center flex-col bg-white h-[70%]">
@@ -179,6 +179,7 @@
                             <div>
                                 <Input placeholder={formDataObject.password.placeholder} type={formDataObject.password.type} name={formDataObject.password.name} label={formDataObject.password.label} bind:value={formDataObject.password.value} additionalClasses="w-full"
                                     passwordClasses="flex flex-row justify-between items-center">
+                                    <SearchCountry data={data} />
                                     <button on:click|preventDefault={togglePasswordVisibility}>
                                         {#if formDataObject.password.type==="password"}
                                             <Show className="w-5 h-5 stroke-zinc-500    " />
@@ -193,6 +194,7 @@
                             </div>
                             <div>
                                 <Input placeholder={formDataObject.password_confirm.placeholder} type={formDataObject.password_confirm.type} name={formDataObject.password_confirm.name} label={formDataObject.password_confirm.label} bind:value={formDataObject.password_confirm.value} additionalClasses="w-full" passwordClasses="flex flex-row justify-between items-center" />
+
                                 {#if form?.errors?.password_confirm}
                                     <p>{form.errors.password_confirm}</p>
                                 {/if}
@@ -202,9 +204,10 @@
                         Continuer
                         </Button>
                     </form>
-            {:else}
-                <form action="?/register" method="POST" class="flex items-center justify-center flex-col" use:enhance={handleSubmit}>
-                    <input type="hidden" name="step" value=1>
+        {:else}
+        <SearchCountry data={data} />
+            <form action="?/register" method="POST" class="flex items-center justify-center flex-col" use:enhance={handleSubmit}>
+                <input type="hidden" name="step" value=1>
                     <div class="flex flex-col gap-y-4 sm:flex-row sm:gap-x-1.5 w-full">
                             <div>
                             <Input placeholder={formDataObject.firstName.placeholder} type={formDataObject.firstName.type} name={formDataObject.firstName.name} label={formDataObject.firstName.label} bind:value={formDataObject.firstName.value} additionalClasses="w-full" />
@@ -225,11 +228,11 @@
                         <p class="text-red-400 mt-1">{form?.errors?.email}</p>
                     {/if}
                     </div>
-                    <div class="mt-4 w-full">
-                        <Input placeholder={formDataObject.phone_number.placeholder} type={formDataObject.phone_number.type} name={formDataObject.phone_number.name} label={formDataObject.phone_number.label} bind:value={formDataObject.phone_number.value} additionalClasses="w-full"  />
-                    {#if form?.errors?.phone_number}
-                        <p class="text-red-400 mt-1">{form?.errors?.phone_number}</p>
-                    {/if}
+                    <div class="mt-4 w-full flex flex-rox items-center">
+                        <Input placeholder={formDataObject.phone_number.placeholder} type={formDataObject.phone_number.type} name={formDataObject.phone_number.name} label={formDataObject.phone_number.label} bind:value={formDataObject.phone_number.value} additionalClasses="w-full" />
+                        {#if form?.errors?.phone_number}
+                            <p class="text-red-400 mt-1">{form?.errors?.phone_number}</p>
+                        {/if}
                     </div>
                     <Button additionalClasses="w-full sm:w-[340px] mt-4">
                         Continuer

@@ -1,30 +1,205 @@
-{
-  "Belgique": "+32",
-  "France": "+33",
-  "Royaume-Uni": "+44",
-  "Etats-Unis": "+1",
-  "Portugal": "+351",
-  "Emirats Arabes Unis": "+971",
-  "Allemagne": "+49",
-  "Brésil": "+55",
-  "Espagne": "+34",
-  "Grèce": "+30",
-  "Italie": "+39",
-  "Pays-Bas": "+31",
-  "Pologne": "+48",
-  "Romanie": "+40",
-  "Russie": "+7",
-  "Suède": "+46",
-  "Suisse": "+41",
-  "Turquie": "+90",
-  "Ukraine": "+380",
-  "Argentine": "+54",
-  "Mexique": "+52",
-  "Irelande": "+353",
-  "Autriche": "+43",
-  "Australie": "+61",
-  "Algérie": "+213",
-  "Japon": "+81",
-  "Monaco": "+377",
-  "Maroc": "+212"
-}
+[
+  {
+    "id": 1,
+    "name": "Belgique",
+    "country_code": "BEL",
+    "phone_number": "+32",
+    "logo": "🇧🇪"
+  },
+  {
+    "id": 2,
+    "name": "France",
+    "country_code": "FRA",
+    "phone_number": "+33",
+    "logo": "🇫🇷"
+  },
+  {
+    "id": 3,
+    "name": "Royaume-Uni",
+    "country_code": "UK",
+    "phone_number": "+44",
+    "logo": "🇬🇧"
+  },
+  {
+    "id": 4,
+    "name": "Etats-Unis",
+    "country_code": "USA",
+    "phone_number": "+1",
+    "logo": "🇺🇸"
+  },
+  {
+    "id": 5,
+    "name": "Portugal",
+    "country_code": "PRT",
+    "phone_number": "+351",
+    "logo": "🇵🇹"
+  },
+  {
+    "id": 6,
+    "name": "Emirats Arabes Unis",
+    "country_code": "ARE",
+    "phone_number": "+971",
+    "logo": "🇦🇪"
+  },
+  {
+    "id": 7,
+    "name": "Allemagne",
+    "country_code": "DEU",
+    "phone_number": "+49",
+    "logo": "🇩🇪"
+  },
+  {
+    "id": 8,
+    "name": "Brésil",
+    "country_code": "BRA",
+    "phone_number": "+55",
+    "logo": "🇧🇷"
+  },
+  {
+    "id": 9,
+    "name": "Espagne",
+    "country_code": "ESP",
+    "phone_number": "+34",
+    "logo": "🇪🇸"
+  },
+  {
+    "id": 10,
+    "name": "Italie",
+    "country_code": "ITA",
+    "phone_number": "+39",
+    "logo": "🇮🇹"
+  },
+  {
+    "id": 11,
+    "name": "Grèce",
+    "country_code": "GRC",
+    "phone_number": "+30",
+    "logo": "🇬🇷"
+  },
+  {
+    "id": 12,
+    "name": "Pay-Bas",
+    "country_code": "NLD",
+    "phone_number": "+31",
+    "logo": "🇳🇱"
+  },
+  {
+    "id": 13,
+    "name": "Pologne",
+    "country_code": "POL",
+    "phone_number": "+48",
+    "logo": "🇵🇱"
+  },
+  {
+    "id": 14,
+    "name": "Romanie",
+    "country_code": "ROU",
+    "phone_number": "+40",
+    "logo": "🇷🇴"
+  },
+  {
+    "id": 15,
+    "name": "Russie",
+    "country_code": "RU",
+    "phone_number": "+7",
+    "logo": "🇷🇺"
+  },
+  {
+    "id": 16,
+    "name": "Suède",
+    "country_code": "SWE",
+    "phone_number": "+46",
+    "logo": "🇸🇪"
+  },
+  {
+    "id": 17,
+    "name": "Suisse",
+    "country_code": "CHE",
+    "phone_number": "+41",
+    "logo": "🇨🇭"
+  },
+  {
+    "id": 18,
+    "name": "Turquie",
+    "country_code": "TUR",
+    "phone_number": "+90",
+    "logo": "🇹🇷"
+  },
+  {
+    "id": 19,
+    "name": "Ukraine",
+    "country_code": "UKR",
+    "phone_number": "+380",
+    "logo": "🇺🇦"
+  },
+  {
+    "id": 20,
+    "name": "Argentine",
+    "country_code": "ARG",
+    "phone_number": "+54",
+    "logo": "🇦🇷"
+  },
+  {
+    "id": 21,
+    "name": "Mexique",
+    "country_code": "MEX",
+    "phone_number": "+52",
+    "logo": "🇲🇽"
+  },
+  {
+    "id": 22,
+    "name": "Irelande",
+    "country_code": "IRL",
+    "phone_number": "+353",
+    "logo": "🇮🇪"
+  },
+  {
+    "id": 23,
+    "name": "Autriche",
+    "country_code": "AUT",
+    "phone_number": "+43",
+    "logo": "🇦🇹"
+  },
+  {
+    "id": 24,
+    "name": "Australie",
+    "country_code": "AUS",
+    "phone_number": "+61",
+    "logo": "🇦🇺"
+  },
+  {
+    "id": 25,
+    "name": "Algérie",
+    "country_code": "DZA",
+    "phone_number": "+213",
+    "logo": "🇩🇿"
+  },
+  {
+    "id": 26,
+    "name": "Japon",
+    "country_code": "JPN",
+    "phone_number": "+81",
+    "logo": "🇯🇵"
+  },
+  {
+    "id": 27,
+    "name": "Monaco",
+    "country_code": "MCO",
+    "phone_number": "+377",
+    "logo": "🇲🇨"
+  },
+  {
+    "id": 28,
+    "name": "Maroc",
+    "country_code": "MAR",
+    "phone_number": "+212",
+    "logo": "🇲🇦"
+  },
+  {
+    "id": 29,
+    "name": "Albania",
+    "country_code": "ALB",
+    "phone_number": "+355",
+    "logo": "🇦🇱"
+  }
+]

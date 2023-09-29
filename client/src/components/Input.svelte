@@ -1,4 +1,9 @@
 <script lang="ts">
+    import { countryStore } from "../stores/countryStore";
+    import { isOpen } from "../stores/openStore";
+
+    console.log($countryStore);
+
     type Input = {
         input_type: "text" | "password" | "email" | "number" | "tel" | null;
         name: string;
@@ -10,16 +15,19 @@
         passwordClasses?: string;
         IsPasswordInput: boolean;
     }
-    let inputBaseClass="w-full h-full px-2 overflow-hidden placeholder-zinc-400/[.55] outline-none text-[15.2px] bg-transparent"
-    let classes = "rounded-[5px] overflow-hidden h-[40px] transition-all bg-zinc-100/[.8] duration-200 focus-within:outline-accent-lilas px-2  outline outline-1 outline-zinc-200/[.4]"
 
-    export let type: Input["input_type"] = "text"
-    export let name: Input["name"] = ""
-    export let placeholder: Input["placeholder"] = ""
-    export let label: Input["label"] = null
-    export let value: Input["value"] = ""
-    export let additionalClasses: Input["additionalClasses"] = ""
-    export let passwordClasses: Input["passwordClasses"] = ""
+    const handleOpen = () => isOpen.set(!$isOpen);
+
+    export let type: Input["input_type"] = "text";
+    export let name: Input["name"] = "";
+    export let placeholder: Input["placeholder"] = "";
+    export let label: Input["label"] = null;
+    export let value: Input["value"] = "";
+    export let additionalClasses: Input["additionalClasses"] = "";
+    export let passwordClasses: Input["passwordClasses"] = "";
+
+    let inputBaseClass="w-full h-full px-2 overflow-hidden placeholder-zinc-400/[.55] outline-none text-[15.2px] bg-transparent";
+    let classes = "rounded-[5px] overflow-hidden h-[40px] transition-all bg-zinc-100/[.8] duration-200 focus-within:outline-accent-lilas px-2  outline outline-1 outline-zinc-200/[.4]";
 </script>
 
 <div class={`${label && "flex flex-col gap-y-1"} ${additionalClasses}`}>
@@ -51,12 +59,17 @@
             />
             <slot />
         {:else if type==="tel"}
-            <input
-                placeholder={placeholder}
-                bind:value={value}
-                type="tel"
-                class="w-full h-full px-2 overflow-hidden placeholder-zinc-300/[.9] outline-none text-[15.2px] bg-transparent"
-            />
+            <div class="flex flex-row h-full">
+                <div class="w-[40px] h-full border-r border-zinc-200" on:click={handleOpen}>
+                    {$countryStore}
+                </div>
+                <input
+                    placeholder={placeholder}
+                    bind:value={value}
+                    type="tel"
+                    class="w-full h-full px-2 overflow-hidden placeholder-zinc-300/[.9] outline-none text-[15.2px] bg-transparent"
+                />
+            </div>
         {/if}
     </div>
 </div>

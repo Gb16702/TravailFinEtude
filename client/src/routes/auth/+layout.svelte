@@ -1,8 +1,7 @@
 <script>
-    import Wave from "../../components/Wave.svelte";
-</script>
+    </script>
 
 <div class="h-screen w-full">
-        <Wave />
+        <!-- <Wave /> -->
     <slot />
 </div>
