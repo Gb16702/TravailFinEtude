@@ -6,7 +6,7 @@ export type IsNullError = {
  * Checks if a string is null or empty
  *
  * @param params string
- * @returns boolean
+ * @returns {boolean}
  */
 const IsNull: (params: string) => IsNullError | null = (params: string) => {
   console.log(typeof params);

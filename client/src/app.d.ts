@@ -8,14 +8,21 @@ declare global {
     // interface Platform {}
   }
 
-  type formValueType = "text" | "password" | "email" | "number" | "tel" | null;
+  type formValueType =
+    | "text"
+    | "password"
+    | "email"
+    | "number"
+    | "tel"
+    | "hidden"
+    | null;
 
   interface formValue {
     type: formValueType;
-    placeholder: string;
+    placeholder?: string;
     name: string;
-    label: string;
-    value: string;
+    label?: string;
+    value: string | boolean;
   }
 
   type FormDataObject = {
@@ -25,7 +32,8 @@ declare global {
       | "email"
       | "phone_number"
       | "password"
-      | "password_confirm"]: formValue;
+      | "password_confirm"
+      | "terms"]: formValue;
   };
 }
 

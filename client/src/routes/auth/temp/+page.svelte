@@ -62,7 +62,7 @@
 
 <div class="w-full h-screen bg-[#ccc]">
     {#if open}
-        <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] bg-white rounded-[8px] overflow-hidden">
+        <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] bg-white rounded-[8px] overflow-hidden rotate">
             <div class="w-full h-[60px] bg-white px-5 flex flex-row justify-between items-center">
                     <h3 class="font-semibold">
                         Sélectionner un pays

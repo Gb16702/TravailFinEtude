@@ -47,6 +47,7 @@ func Register(c *fiber.Ctx) error {
 		Email           string `json:"email"`
 		Password        string `json:"password"`
 		PasswordConfirm string `json:"passwordconfirm"`
+		PhoneNumber     string `json:"phone_number"`
 	}
 
 	Register := Register_struct{}
@@ -56,7 +57,7 @@ func Register(c *fiber.Ctx) error {
 		})
 	}
 
-	requiredFields := []string{"firstname", "lastname", "email", "password", "passwordconfirm"}
+	requiredFields := []string{"firstname", "lastname", "email", "password", "passwordconfirm", "phone_number"}
 	for _, field := range requiredFields {
 		switch field {
 		case "firstname":
@@ -117,6 +118,18 @@ func Register(c *fiber.Ctx) error {
 					"message": err.Error(),
 				})
 			}
+
+		case "phone_number":
+			if utils.IsNilOrEmpty(Register.PhoneNumber) {
+				return c.Status(500).JSON(fiber.Map{
+					"message": "Le numéro de téléphone est requis",
+				})
+			}
+			if isValid, err := utils.IsValidPhoneNumber(Register.PhoneNumber); !isValid {
+				return c.Status(500).JSON(fiber.Map{
+					"message": "Le numéro de téléphone est invalide" + err,
+				})
+			}
 		}
 	}
 
@@ -128,8 +141,9 @@ func Register(c *fiber.Ctx) error {
 	}
 
 	user := models.User{
-		FirstName: Register.FirstName,
-		LastName:  Register.LastName,
+		FirstName:   Register.FirstName,
+		LastName:    Register.LastName,
+		PhoneNumber: Register.PhoneNumber,
 		UserLogin: models.UserLogin{
 			Email:    Register.Email,
 			Password: hash,

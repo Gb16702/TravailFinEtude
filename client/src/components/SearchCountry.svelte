@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { countryStore } from "../stores/countryStore";
     import { isOpen } from "../stores/openStore";
     import Checkbox from "./Checkbox.svelte";
     import Close from "./icons/Close.svelte";
     import Search from "./icons/Search.svelte";
+    import { countryStore, type Country } from "../stores/countryStore";
 
     type Checkbox = {
         id: number | null,
@@ -59,15 +59,19 @@
     };
 
     let checkbox: Checkbox = Object.assign({id: null, checked: false, code: null});
-    const handleCheck = (id: number | null, phone_number: string | null): Checkbox => {
-        countryStore.set(phone_number);
-        return checkbox.id === id ? checkbox = {id: null, checked: false, code: null } : checkbox = {id, checked: true, code: phone_number}
-    };
+    const handleCheck = (id: Country["id"], phone_number: Country["code"], logo: Country["logo"]): Checkbox => {
+    countryStore.update(d_ => {
+        d_.code = checkbox.id === id ? null : phone_number;
+        d_.logo = checkbox.id === id ? null : logo;
+        return d_;
+    });
+    return checkbox = { id: checkbox.id === id ? null : id, checked: true, code: checkbox.id === id ? null : phone_number };
+};
 </script>
 
     {#if $isOpen}
         <div class="fixed z-1 bg-black/[.2] backdrop-blur-sm w-full h-full top-0 left-0"></div>
-        <div class="fixed z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] bg-white rounded-[8px] overflow-hidden">
+        <div class="fixed z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] lg:w-[50%] bg-white rounded-[8px] overflow-hidden">
             <div class="w-full h-[60px] bg-white px-5 flex flex-row justify-between items-center">
                     <h3 class="font-semibold">
                         Sélectionner un pays
@@ -99,7 +103,7 @@
             <div class="w-full bg-white overflow-auto h-[220px] pt-1 pb-5">
                 {#if countryNames.length !== 0}
                     {#each countryNames as cn }
-                        <div class={`w-full h-[45px] flex items-center ${checkbox.id == cn && checkbox.checked && "bg-zinc-100"}`} on:click={e => handleCheck(cn.id, cn.phone_number)}>
+                        <div class={`w-full h-[45px] flex items-center ${checkbox.id == cn && checkbox.checked && "bg-zinc-100"}`} on:click={e => handleCheck(cn.id, cn.phone_number, cn.logo)}>
                             <div class="flex justify-between flex-row px-5 items-center w-full">
                                 <div class="flex flex-row gap-x-2 items-center">
                                     <Checkbox checked={checkbox.id === cn.id}  theme="alt" />

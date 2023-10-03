@@ -14,6 +14,14 @@ export interface RequestWithMethod<T extends Method> extends RequestInterface {
   Method?: T;
 }
 
+/**
+ * This function is used to execute a request
+ *
+ * @param request
+ * @param method
+ * @param body
+ * @returns {Promise<Response>}
+ */
 const Exec: <T extends Method>(request: string, method: RequestWithMethod<T>, body: RequestInterface
 ) => Promise<Response> = async <T extends Method>( request: string, method: RequestWithMethod<T>, body: RequestInterface) => {
   let response;

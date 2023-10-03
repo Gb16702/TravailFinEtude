@@ -1,15 +1,14 @@
 <script lang="ts">
-    import { countryStore } from "../stores/countryStore";
     import { isOpen } from "../stores/openStore";
-
-    console.log($countryStore);
+    import Arrow from "./icons/Arrow.svelte";
+    import { countryStore } from "../stores/countryStore";
 
     type Input = {
-        input_type: "text" | "password" | "email" | "number" | "tel" | null;
+        input_type: "text" | "password" | "email" | "number" | "tel" | "hidden" | null;
         name: string;
         placeholder: string;
         label?: string | null;
-        value: string;
+        value: string | boolean;
         additionalClasses: string;
         tag?: string;
         passwordClasses?: string;
@@ -18,40 +17,43 @@
 
     const handleOpen = () => isOpen.set(!$isOpen);
 
+    console.log($countryStore.code);
+
     export let type: Input["input_type"] = "text";
     export let name: Input["name"] = "";
     export let placeholder: Input["placeholder"] = "";
     export let label: Input["label"] = null;
-    export let value: Input["value"] = "";
+    export let value: Input["value"] = "fsqddqsd";
     export let additionalClasses: Input["additionalClasses"] = "";
     export let passwordClasses: Input["passwordClasses"] = "";
 
-    let inputBaseClass="w-full h-full px-2 overflow-hidden placeholder-zinc-400/[.55] outline-none text-[15.2px] bg-transparent";
-    let classes = "rounded-[5px] overflow-hidden h-[40px] transition-all bg-zinc-100/[.8] duration-200 focus-within:outline-accent-lilas px-2  outline outline-1 outline-zinc-200/[.4]";
+    let inputBaseClass="w-full h-full px-2 overflow-hidden placeholder-zinc-500/[.8] outline-none text-[14.5px] bg-transparent";
+    let classes = "rounded-[6px] overflow-hidden h-[40px] transition-all bg-white border border-zinc-200/[.7] duration-200 focus-within:outline-zinc-300 px-2 ";
 </script>
 
 <div class={`${label && "flex flex-col gap-y-1"} ${additionalClasses}`}>
     {#if label}
-        <label for={name} class="font-semibold text-[14.4px]">{label}</label>
+        <label for={name} class="text-[13px] tracking-wide text-zinc-600 mt-2.5">{label}</label>
     {/if}
     <div class={`${passwordClasses} ${classes}`}>
         {#if type === "text" }
             <input
-                placeholder={placeholder}
+                name={name}
                 bind:value={value}
                 type="text"
-                class="w-full h-full px-2 overflow-hidden placeholder-zinc-300/[.9] outline-none text-[15.2px] bg-transparent"
+                class={inputBaseClass}
             />
             <slot />
         {:else if type==="email"}
             <input
-                class="w-full h-full px-2 overflow-hidden placeholder-zinc-300/[.9] outline-none text-[15.2px] bg-transparent"
+                name={name}
+                class={inputBaseClass}
                 bind:value={value}
-                placeholder={placeholder}
                 type="email"
             />
         {:else if type==="password"}
             <input
+                name={name}
                 class={inputBaseClass}
                 bind:value={value}
                 placeholder={placeholder}
@@ -60,14 +62,30 @@
             <slot />
         {:else if type==="tel"}
             <div class="flex flex-row h-full">
-                <div class="w-[40px] h-full border-r border-zinc-200" on:click={handleOpen}>
-                    {$countryStore}
+                <div class="w-[70px] h-full border-r border-zinc-200/[.7] flex flex-row items-center" on:click={handleOpen}>
+                    <div class="w-1/2 flex items-center justify-center">
+                        <div class="w-5 h-5 flex items-center justify-center ">
+                            {#if $countryStore.logo !== null}
+                            {$countryStore.logo}
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="w-1/2 flex items-center justify-center">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <Arrow classes="w-[14px] h-[14px] relative top-[2px] stroke-zinc-600" stroke_width="2" />
+                        </div>
+                    </div>
+                </div>
+                <div class="w-[55px] h-full flex items-center justify-end text-[14.5px]">
+                    {#if $countryStore.code !== null}
+                            {$countryStore.code}
+                    {/if}
                 </div>
                 <input
-                    placeholder={placeholder}
+                    name={name}
                     bind:value={value}
                     type="tel"
-                    class="w-full h-full px-2 overflow-hidden placeholder-zinc-300/[.9] outline-none text-[15.2px] bg-transparent"
+                    class={inputBaseClass}
                 />
             </div>
         {/if}

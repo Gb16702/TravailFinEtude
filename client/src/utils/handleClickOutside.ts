@@ -2,7 +2,7 @@
  *  This function is used to detect a click outside of a component.
 *
  * @param node
- * @returns
+ * @returns {destroy(): void}
  */
 const handleClickOutside = (node: HTMLElement): {destroy(): void} => {
     const click: (event: Event) => void = (event) => {

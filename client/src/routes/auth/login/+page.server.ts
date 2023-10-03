@@ -40,8 +40,6 @@ export const actions: Actions = {
 
     console.log(response);
 
-
-
     // if(Object.keys(errors).length ! == 0) {
     //     return {
     //         status: 400,

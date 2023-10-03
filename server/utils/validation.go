@@ -99,14 +99,27 @@ func IsValidPassword(password string) (bool, error) {
 *	This function checks if the value is a valid password
 *
 *	@param password string
-*	@param password_confirm string
+*	@param passwordConfirm string
 *	@returns bool
 *   @returns error
  */
-func ArePasswordMatching(password, password_confirm string) (bool, error) {
-	if password != password_confirm {
+func ArePasswordMatching(password, passwordConfirm string) (bool, error) {
+	if password != passwordConfirm {
 		return false, errors.New("les mots de passe ne correspondent pas")
 	}
 
 	return true, nil
+}
+
+// IsValidPhoneNumber checks if the phone number is valid
+//
+// @param phoneNumber string
+// @returns bool
+// @returns string
+func IsValidPhoneNumber(phoneNumber string) (bool, string) {
+	const regex = `^\+\d+`
+	if match, err := regexp.MatchString(regex, phoneNumber); !match {
+		return false, err.Error()
+	}
+	return true, ""
 }

@@ -9,7 +9,7 @@ export type PasswordValidationError = {
  *  This function is used to validate a password by using a closure with two sub-functions.
  *
  * @param password string
- * @returns err | null
+ * @returns {err | null}
  */
 export const IsPasswordValid: (password: string) => PasswordValidationError | null = (
   password: string
