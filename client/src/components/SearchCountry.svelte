@@ -65,7 +65,14 @@
         d_.logo = checkbox.id === id ? null : logo;
         return d_;
     });
-    return checkbox = { id: checkbox.id === id ? null : id, checked: true, code: checkbox.id === id ? null : phone_number };
+    checkbox = {
+        ...checkbox,
+        id: checkbox.id === id ? null : id,
+        checked: checkbox.id !== id,
+        code: checkbox.id === id ? null : phone_number
+    };
+
+    return checkbox;
 };
 </script>
 
