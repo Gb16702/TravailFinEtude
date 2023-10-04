@@ -193,7 +193,7 @@
                         <section class="flex row w-full flex-1 min-h-[70px] rounded-[5px] border border-zinc-300/[.7] bg-white">
                             <div class=" w-[10%] flex items-center justify-center">
                                 <input type={formDataObject.terms.type} name={formDataObject.terms.name} value={formDataObject.terms.value}>
-                                <Checkbox theme={"default"} onCheck={toggleTerms} checked={formDataObject.terms.value} />
+                                <Checkbox theme={"default"} onCheck={toggleTerms} checked={Boolean(formDataObject.terms.value)} />
                             </div>
                             <div class="w-[90%] flex items-center  pr-1">
                                 <small class="text-[14px] text-zinc-600">
