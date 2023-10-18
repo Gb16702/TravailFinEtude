@@ -162,7 +162,7 @@ func Register(c *fiber.Ctx) error {
 	})
 }
 
-func login(c *fiber.Ctx) error {
+func Login(c *fiber.Ctx) error {
 	if c.Method() != fiber.MethodPost {
 		return c.Status(500).JSON(fiber.Map{
 			"message": "La méthode est incorrecte",
@@ -176,13 +176,13 @@ func login(c *fiber.Ctx) error {
 		})
 	}
 
-	if utils.IsNilOrEmpty(&login.Email) {
+	if utils.IsNilOrEmpty(login.Email) {
 		return c.Status(500).JSON(fiber.Map{
 			"message": "L'email est requise",
 		})
 	}
 
-	if utils.IsNilOrEmpty(&login.Password) {
+	if utils.IsNilOrEmpty(login.Password) {
 		return c.Status(500).JSON(fiber.Map{
 			"message": "Le mot de passe est requis",
 		})
@@ -192,7 +192,7 @@ func login(c *fiber.Ctx) error {
 	result := database.DB.Where("email = ?", login.Email).First(&user)
 	if result.Error != nil {
 		return c.Status(500).JSON(fiber.Map{
-			"message": "Identifiants invalides 2",
+			"message": "Identifiants invalides",
 		})
 	}
 
@@ -200,7 +200,7 @@ func login(c *fiber.Ctx) error {
 	if err != nil || !match {
 
 		return c.Status(500).JSON(fiber.Map{
-			"message": "Identifiants invalides 3",
+			"message": "Identifiants invalides",
 		})
 	}
 
@@ -214,5 +214,6 @@ func login(c *fiber.Ctx) error {
 	return c.Status(200).JSON(fiber.Map{
 		"message": "Authentification réussie",
 		"session": session,
+		"userid":  user.ID,
 	})
 }

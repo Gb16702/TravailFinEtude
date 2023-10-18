@@ -1,7 +1,6 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
     import type { SubmitFunction } from "@sveltejs/kit";
-    import AuthSectionToggler from "../../../components/AuthSectionToggler.svelte";
     import Button from "../../../components/Button.svelte";
     import Checkbox from "../../../components/Checkbox.svelte";
     import Input from "../../../components/Input.svelte";
@@ -13,11 +12,8 @@
     import GenerateSecurePassword from "../../../utils/generateSecurePassword";
     import Sparkles from "../../../components/icons/Sparkles.svelte";
     import Stepper from "../../../components/Stepper.svelte";
-
-    export const snapshot: Snapshot = {
-        capture: () => formDataObject,
-        restore: data => formDataObject = data
-    }
+    import Menu from "../../../components/Menu.svelte";
+    import AuthSectionToggler from "../../../components/AuthSectionToggler.svelte";
 
     const togglePasswordVisibility: () => "text" | "password" = () => {
         return formDataObject.password.type = formDataObject.password_confirm.type = formDataObject.password.type === "password" ? "text" : "password"
@@ -82,6 +78,11 @@
         }
     }
 
+    export const snapshot: Snapshot = {
+        capture: () => formDataObject,
+        restore: data => formDataObject = data
+    }
+
     export let data: PageData
 
     const generateSecurePassword: () => void = () => {
@@ -89,27 +90,33 @@
         formDataObject.password_confirm.value = formDataObject.password.value;
     }
 
-    const toggleTerms = () => {
+    const toggleTerms: () => void = () => {
         formDataObject.terms.value = !formDataObject.terms.value;
     }
 
+    console.log(formDataObject.firstName.value);
+
 </script>
 
-<div class="w-full flex items-start justify-center flex-col gap-y-[2px] h-[30%]">
-    <div class="flex items-center justify-center flex-col w-full h-[55%]">
-        <h1 class="text-[19px] text-black">Bienvenue</h1>
-        <h1 class="font-bold text-[27px] text-black">Créer un compte</h1>
+<Menu />
+<div class="h-[100px]"></div>
+<div class="w-full flex justify-center gap-y-[2px] px-2">
+    <div class=" flex items-start justify-center flex-col w-[98%] md:w-[75%] lg:w-[650px] rounded-[8px]">
+        <div class="flex items-center justify-center flex-col w-full h-[100px]">
+            <h1 class="text-[19px] text-black font-medium">Bienvenue</h1>
+            <h1 class="font-bold text-[31px] text-[#383838]">Créer un compte</h1>
+        </div>
+        <Stepper step={step} />
     </div>
-    <Stepper step={step} />
 </div>
     <div class="w-full flex flex-col items-center justify-center min-h-[480px]">
-        <div class="w-[99%] md:w-[75%] lg:w-[650px] px-2">
+        <div class="w-[98%] md:w-[75%] lg:w-[650px] px-2">
         {#if step === 3}
                 <form action="?/register" class="rounded-[5px] overflow-hidden" method="POST" use:enhance={handleSubmit}>
                     <input type="hidden" name="step" value=3>
                         <div class="flex flex-col ">
                         <section class=" pb-7 pt-1">
-                            <div class=" pl-4 pr-1 py-[20px] rounded-md border border-zinc-300/[.7] bg-white">
+                            <div class=" pl-4 pr-1 py-[20px] rounded-md bg-[#EDEEF2]">
                                 <div class="pb-4">
                                     <h2 class="pb-1 text-[19px] font-semibold tracking-[-0.010em]">Résumé d'inscription</h2>
                                     <h4 class="text-[13px] text-zinc-400">Les champs peuvent être <span class="font-semibold text-black">modifiés</span> avant de vous inscrire</h4>
@@ -121,7 +128,7 @@
                                         </label>
                                     </div>
                                     <input
-                                        class="px-2 overflow-visible rounded-[4px] w-[65%] bg-transparent text-sm placeholder-zinc-500/[.8] outline outline-1 outline-zinc-300/[.7]"
+                                        class="px-2 overflow-visible rounded-[4px] w-[65%] bg-[#F7F7F7] text-sm placeholder-zinc-500/[.8]"
                                         name={formDataObject.firstName.name}
                                         type={formDataObject.firstName.type}
                                         value={formDataObject.firstName.value}
@@ -134,7 +141,7 @@
                                         </label>
                                     </div>
                                     <input
-                                    class="px-2 rounded-[4px] w-[65%] bg-transparent text-sm placeholder-zinc-500/[.8] outline outline-1 outline-zinc-300/[.7]"
+                                    class="px-2 rounded-[4px] w-[65%] bg-[#F7F7F7] text-sm placeholder-zinc-500/[.8]"
                                     name={formDataObject.lastName.name}
                                     type={formDataObject.lastName.type}
                                     value={formDataObject.lastName.value}
@@ -147,7 +154,7 @@
                                         </label>
                                     </div>
                                     <input
-                                    class="px-2 rounded-[4px] w-[65%] bg-transparent text-sm placeholder-zinc-500/[.8] outline outline-1 outline-zinc-300/[.7]"
+                                    class="px-2 rounded-[4px] w-[65%] bg-[#F7F7F7] text-sm placeholder-zinc-500/[.8]"
                                     name={formDataObject.email.name}
                                     type={formDataObject.email.type}
                                     value={formDataObject.email.value}
@@ -159,9 +166,9 @@
                                             Mot de passe :
                                         </label>
                                     </div>
-                                        <div class="px-2 rounded-[4px] w-[65%] bg-transparent  text-sm placeholder-zinc-500/[.8] outline-1 outline-zinc-300/[.7] outline flex flex-row items-center">
+                                        <div class="px-2 rounded-[4px] w-[65%] bg-[#F7F7F7]  text-sm placeholder-zinc-500/[.8] flex flex-row items-center">
                                             <input
-                                            class="w-[90%] outline-none"
+                                            class="w-[90%] outline-none bg-transparent"
                                             name={formDataObject.password.name}
                                             type={formDataObject.password.type}
                                             value={formDataObject.password.value}
@@ -182,7 +189,7 @@
                                         </label>
                                     </div>
                                     <input
-                                        class="px-2 rounded-[4px] w-[65%] bg-transparent text-sm placeholder-zinc-500/[.8] outline outline-1 outline-zinc-300/[.7]"
+                                        class="px-2 rounded-[4px] w-[65%] bg-[#F7F7F7] text-sm placeholder-zinc-500/[.8]"
                                         name={formDataObject.phone_number.name}
                                         type={formDataObject.phone_number.type}
                                         value={$countryStore.code && $countryStore.code + formDataObject.phone_number.value}
@@ -190,7 +197,7 @@
                                 </div>
                             </div>
                         </section>
-                        <section class="flex row w-full flex-1 min-h-[70px] rounded-[5px] border border-zinc-300/[.7] bg-white">
+                        <section class="flex row w-full flex-1 min-h-[70px] rounded-[5px] bg-[#EDEEF2]">
                             <div class=" w-[10%] flex items-center justify-center">
                                 <input type={formDataObject.terms.type} name={formDataObject.terms.name} value={formDataObject.terms.value}>
                                 <Checkbox theme={"default"} onCheck={toggleTerms} checked={Boolean(formDataObject.terms.value)} />
@@ -205,12 +212,12 @@
                             </div>
                         </section>
                     </div>
-                    <div class="w-full md:flex md:justify-between md:items-center md:bg-white mt-4 md:px-2 md:rounded-md md:border md:border-zinc-300/[.7] md:py-3">
+                    <div class="w-full md:flex md:justify-between md:items-center md:bg-[#EDEEF2] mt-4 md:px-2 md:rounded-[8px] md:py-3">
                         <div class="max-md:hidden">
                             <AuthSectionToggler />
                         </div>
-                        <Button additionalClasses="w-full ">
-                            Continuer
+                        <Button additionalClasses="w-full h-[40px] md:h-[36px]">
+                            Confirmer
                         </Button>
                     </div>
                 </form>
@@ -242,11 +249,11 @@
                                 <p>{form.errors.passwordconfirm}</p>
                             {/if}
                     </div>
-                    <div class="w-full md:flex md:justify-between md:items-center md:bg-white mt-4 md:px-2 md:rounded-md md:border md:border-zinc-200/[.7] md:py-3">
+                    <div class="w-full md:flex md:justify-between md:items-center md:bg-[#EDEEF2] mt-4 md:px-2 md:rounded-[8px] md:py-3">
                         <div class="max-md:hidden">
                             <AuthSectionToggler />
                         </div>
-                        <Button additionalClasses="w-full ">
+                        <Button additionalClasses="w-full h-[40px] md:h-[36px]">
                             Continuer
                         </Button>
                     </div>
@@ -282,18 +289,18 @@
                                 <p class="text-red-400 mt-1 w-full">{form?.errors?.phone_number}</p>
                             {/if}
                         </div>
-                        <div class="w-full md:flex md:justify-between md:items-center md:bg-white mt-4 md:px-2 md:rounded-md md:border md:border-zinc-200/[.7] md:py-3">
+                        <div class="w-full md:flex md:justify-between md:items-center md:bg-[#EDEEF2] mt-4 md:px-2 md:rounded-[8px] md:py-3">
                             <div class="max-md:hidden">
                                 <AuthSectionToggler />
                             </div>
-                            <Button additionalClasses="w-full ">
+                            <Button additionalClasses="w-full h-[40px] md:h-[36px]">
                                 Continuer
                             </Button>
                         </div>
                 </form>
                 {/if}
             </div>
-            <div class="mt-4 md:hidden">
+            <div class="mt-6 md:hidden">
                 <AuthSectionToggler />
             </div>
         </div>

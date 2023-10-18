@@ -23,7 +23,7 @@
     </div>
         <div class="w-1/3">
             <div class="flex flex-row items-center justify-end gap-x-2">
-            <a href="/auth">
+            <a href="/auth/register">
                 Authentification
             </a>
             </div>

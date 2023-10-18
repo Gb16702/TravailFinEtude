@@ -83,7 +83,7 @@
                     <h3 class="font-semibold">
                         Sélectionner un pays
                     </h3>
-                <div class="bg-zinc-100 p-[2px] rounded-md font-semibold text-[15px] cursor-pointer" on:click={handleClose} >
+                <div class=" p-[2px] rounded-md font-semibold text-[15px] cursor-pointer" on:click={handleClose} >
                     <Close className="w-[16px] h-[16px] stroke-zinc-500" />
                 </div>
             </div>
@@ -107,7 +107,7 @@
                 {/if}
                 </div>
             </div>
-            <div class="w-full bg-white overflow-auto h-[220px] pt-1 pb-5">
+            <div class="w-full bg-white overflow-auto h-[280px] pt-1 pb-5">
                 {#if countryNames.length !== 0}
                     {#each countryNames as cn }
                         <div class={`w-full h-[45px] flex items-center ${checkbox.id == cn && checkbox.checked && "bg-zinc-100"}`} on:click={e => handleCheck(cn.id, cn.phone_number, cn.logo)}>

@@ -35,6 +35,10 @@ declare global {
       | "password_confirm"
       | "terms"]: formValue;
   };
+
+  type loginFormDataObject = {
+    [key in "email" | "password"]: formValue
+  }
 }
 
 export {};

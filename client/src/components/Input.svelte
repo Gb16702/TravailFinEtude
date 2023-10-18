@@ -28,7 +28,7 @@
     export let passwordClasses: Input["passwordClasses"] = "";
 
     let inputBaseClass="w-full h-full px-2 overflow-hidden placeholder-zinc-500/[.8] outline-none text-[14.5px] bg-transparent";
-    let classes = "rounded-[6px] overflow-hidden h-[40px] transition-all bg-white border border-zinc-200/[.7] duration-200 focus-within:outline-zinc-300 px-2 ";
+    let classes = "rounded-[8px] overflow-hidden h-[40px] transition-all bg-[#EDEEF2] duration-200 focus-within:outline-zinc-300 px-2";
 </script>
 
 <div class={`${label && "flex flex-col gap-y-1"} ${additionalClasses}`}>
@@ -61,18 +61,18 @@
             />
             <slot />
         {:else if type==="tel"}
-            <div class="flex flex-row h-full">
+            <div class="flex flex-row h-full gap-x-2">
                 <div class="w-[70px] h-full border-r border-zinc-200/[.7] flex flex-row items-center" on:click={handleOpen}>
                     <div class="w-1/2 flex items-center justify-center">
-                        <div class="w-5 h-5 flex items-center justify-center ">
+                        <div class="w-5 h-5 flex items-center justify-center">
                             {#if $countryStore.logo !== null}
                             {$countryStore.logo}
                             {/if}
                         </div>
                     </div>
                     <div class="w-1/2 flex items-center justify-center">
-                        <div class="w-5 h-5 flex items-center justify-center">
-                            <Arrow classes="w-[14px] h-[14px] relative top-[2px] stroke-zinc-600" stroke_width="2" />
+                        <div class="w-5 h-5 flex items-center justify-center z">
+                            <Arrow classes="w-[14px] h-[14px] mt-[3px] stroke-zinc-600" stroke_width="2" />
                         </div>
                     </div>
                 </div>

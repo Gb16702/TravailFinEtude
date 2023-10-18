@@ -24,8 +24,6 @@ func ReportsHandler(c *fiber.Ctx) error {
 		})
 	}
 
-
-
 	return nil;
 }
 

@@ -149,7 +149,6 @@ export const actions: Actions = {
         const data = await response.json();
         console.log(data);
 
-
         if (response.status !== 200) {
           throw redirect(303, "/auth/register");
         }
